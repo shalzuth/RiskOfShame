@@ -5,6 +5,12 @@ namespace RiskOfShame
 {
     public class AdvancedTooltips : MonoBehaviour
     {
+        private void Start()
+        {
+            var itemDefs = typeof(RoR2.ItemCatalog).GetStaticField<RoR2.ItemDef[]>("itemDefs");
+            foreach(var itemDef in itemDefs)
+                itemDef.pickupToken = itemDef.descriptionToken;
+        }
         private void Update()
         {
             var huds = typeof(RoR2.UI.HUD).GetStaticField<List<RoR2.UI.HUD>>("instancesList");
