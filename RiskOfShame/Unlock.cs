@@ -6,6 +6,10 @@ namespace RiskOfShame
 {
     public class Unlock : MonoBehaviour
     {
+        void Awake()
+        {
+            enabled = false;
+        }
         private void OnEnable()
         {
             var unlockables = typeof(RoR2.UnlockableCatalog).GetStaticField<Dictionary<String, RoR2.UnlockableDef>>("nameToDefTable");

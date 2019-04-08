@@ -13,7 +13,9 @@ namespace RiskOfShame
             foreach (var purchase in purchasables)
             {
                 if (purchase.available)
+                {
                     Locks.Add(UnityEngine.Object.Instantiate<GameObject>(RoR2.TeleporterInteraction.instance.lockPrefab, purchase.transform.position, Quaternion.identity));
+                }
             }
             var barrels = UnityEngine.Object.FindObjectsOfType<RoR2.BarrelInteraction>();
             foreach (var barrel in barrels)

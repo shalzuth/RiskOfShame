@@ -16,6 +16,8 @@ namespace RiskOfShame
         {
             Inventory.RemoveItem(ItemIndex, 1);
             RoR2.PickupDropletController.CreatePickupDroplet(new RoR2.PickupIndex(ItemIndex), User.cachedBody.transform.position + Vector3.up * 1.5f, Vector3.up * 20f + User.cachedBody.transform.forward * 2f);
+            //var localUser = RoR2.LocalUserManager.GetFirstLocalUser();
+            //RoR2.Chat.SendBroadcastChat(new RoR2.Chat.UserChatMessage { sender = localUser.cachedMasterObject, text = ItemIndex + " dropped!" });
         }
     }
     public class DropItem : MonoBehaviour
