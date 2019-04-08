@@ -20,7 +20,7 @@ namespace RiskOfShame.Loader.Core
                 return false;
             Console.WriteLine("Getting latest version info from Github");
             System.Net.WebClient wc = new System.Net.WebClient();
-            String hash = wc.DownloadString("https://github.com/shalzuth/RiskOfShame/RiskOfShame");
+            String hash = wc.DownloadString("https://github.com/shalzuth/RiskOfShame/tree/master/RiskOfShame");
             String hashSearch = "\"commit-tease-sha\" href=\"/shalzuth/RiskOfShame/commit/";
             hash = hash.Substring(hash.IndexOf(hashSearch) + hashSearch.Length, 7);
             String hashFile = @".\RiskOfShame-master\hash.txt";
@@ -80,10 +80,10 @@ namespace RiskOfShame.Loader.Core
             //compilerParameters.ReferencedAssemblies.Add(gamePath + "TextMeshPro-1.0.55.2017.1.0b11.dll");*/
 
             string[] sourceFiles;
-#if DEBUG
-            sourceFiles = Directory.GetFiles(@"..\..\..\RiskOfShame", "*.cs", SearchOption.AllDirectories);
-            //else
-            //    sourceFiles = Directory.GetFiles(@"BattleSharpController-master\BattleriteScriptsController\", "*.cs", SearchOption.AllDirectories);
+            if (Directory.Exists(@"..\..\..\RiskOfShame"))
+                sourceFiles = Directory.GetFiles(@"..\..\..\RiskOfShame", "*.cs", SearchOption.AllDirectories);
+            else
+                sourceFiles = Directory.GetFiles(@"RiskOfShame-master\RiskOfShame\", "*.cs", SearchOption.AllDirectories);
             var sources = new List<String>();
             foreach (var sourceFile in sourceFiles)
             {
@@ -91,7 +91,6 @@ namespace RiskOfShame.Loader.Core
                 source = source.Replace("RiskOfShame", randString);
                 sources.Add(source);
             }
-#endif
             var result = codeProvider.CompileAssemblyFromSource(compilerParameters, sources.ToArray());
             return File.ReadAllBytes(randString + ".dll");
             /*using (MemoryStream stream = new MemoryStream())

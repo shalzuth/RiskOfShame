@@ -53,6 +53,7 @@ namespace RiskOfShame.Loader
             var unityDllPath = gameDir + @"\" + gameName + @"_Data\Managed\";
             Compiler.UnityDllPath = unityDllPath;
             Console.WriteLine("Injecting");
+            Compiler.UpdateSources();
             Injector.Inject("Risk of Rain 2", Compiler.CompileDll(randString), randString, "Loader", "Load");
             System.IO.File.Delete(randString + ".dll");
             if (System.IO.File.Exists(randString + ".pdb"))
