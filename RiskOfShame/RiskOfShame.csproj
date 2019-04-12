@@ -46,6 +46,10 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="TextMeshPro-1.0.55.2017.1.0b11, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>D:\SteamLibrary\steamapps\common\Risk of Rain 2\Risk of Rain 2_Data\Managed\TextMeshPro-1.0.55.2017.1.0b11.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine">
       <HintPath>D:\SteamLibrary\steamapps\common\Risk of Rain 2\Risk of Rain 2_Data\Managed\UnityEngine.dll</HintPath>
     </Reference>
@@ -74,6 +78,8 @@
     <Compile Include="BigParty.cs" />
     <Compile Include="EnemySurvivors.cs" />
     <Compile Include="ItemNotification.cs" />
+    <Compile Include="RemoveEmptyObjects.cs" />
+    <Compile Include="RevealLoot.cs" />
     <Compile Include="Testing.cs" />
     <Compile Include="DropItem.cs" />
     <Compile Include="Extensions.cs" />

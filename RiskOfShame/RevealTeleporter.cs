@@ -9,7 +9,6 @@ namespace RiskOfShame
         private void Start()
         {
             prefab = Resources.Load<GameObject>("Prefabs/PositionIndicators/TeleporterChargingPositionIndicator");
-            OnEnable();
         }
         private void OnEnable()
         {
@@ -22,6 +21,15 @@ namespace RiskOfShame
         private void OnDisable()
         {
             GameObject.Destroy(teleporterPositionIndicator);
+        }
+        int InitialStage = RoR2.Run.instance.stageClearCount;
+        void Update()
+        {
+            if (InitialStage != RoR2.Run.instance.stageClearCount && RoR2.LocalUserManager.GetFirstLocalUser().cachedBody.isSprinting)
+            {
+                InitialStage = RoR2.Run.instance.stageClearCount;
+                OnEnable();
+            }
         }
     }
 }

@@ -48,11 +48,12 @@ namespace RiskOfShame.Loader
                 Thread.Sleep(5000);
                 ror2 = System.Diagnostics.Process.GetProcessesByName("Risk of Rain 2");
             }
+            Status.Text = "Game Open - Injecting";
             var gameDir = System.IO.Path.GetDirectoryName(ror2[0].MainModule.FileName);
             var gameName = System.IO.Path.GetFileName(gameDir);
             var unityDllPath = gameDir + @"\" + gameName + @"_Data\Managed\";
+            Status.Text = "Injecting - Game @ " + unityDllPath;
             Compiler.UnityDllPath = unityDllPath;
-            Console.WriteLine("Injecting");
             Compiler.UpdateSources();
             Injector.Inject("Risk of Rain 2", Compiler.CompileDll(randString), randString, "Loader", "Load");
             System.IO.File.Delete(randString + ".dll");

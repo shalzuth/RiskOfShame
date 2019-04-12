@@ -32,6 +32,10 @@ namespace RiskOfShame
             foreach (var component in components)
             {
                 sb.AppendLine(new string(' ', level * 2) + obj.name + " component : " + component.GetType());
+                if (component.GetType() == typeof(RoR2.EntityStateMachine))
+                {
+                    sb.AppendLine(new string(' ', level * 2) + obj.name + " state : " + ((RoR2.EntityStateMachine)component).state);
+                }
             }
             var num = obj.transform.childCount;
             for (int i = 0; i < num; i++)
@@ -123,13 +127,29 @@ namespace RiskOfShame
             RoR2.RuleCatalog.allCategoryDefs.FirstOrDefault(c => c.displayToken == "RULE_HEADER_EQUIPMENT").hiddenTest = new Func<bool>(False);
             RoR2.RuleCatalog.allCategoryDefs.FirstOrDefault(c => c.displayToken == "RULE_HEADER_MISC").hiddenTest = new Func<bool>(False);*/
 
-            var sb = new StringBuilder();
+            RoR2.LocalUserManager.GetFirstLocalUser().cachedMasterController.master.money = 1000;
+            RoR2.LocalUserManager.GetFirstLocalUser().cachedBody.baseMoveSpeed = 20.0f;
+            RoR2.LocalUserManager.GetFirstLocalUser().cachedBody.baseJumpCount = 5;
+
+            RoR2.LocalUserManager.GetFirstLocalUser().cachedBody.healthComponent.godMode= true;
+            RoR2.LocalUserManager.GetFirstLocalUser().cachedBody.baseDamage = 10000;
+
+            /*var sb = new StringBuilder();
+            var chests = UnityEngine.Object.FindObjectsOfType<RoR2.ChestBehavior>();
+            foreach (var obj in chests)
+            {
+                sb.AppendLine(obj.GetField<RoR2.PickupIndex>("dropPickup").GetPickupNameToken());
+                sb.AppendLine(RoR2.Language.GetString(obj.GetField<RoR2.PickupIndex>("dropPickup").GetPickupNameToken()));
+                //recurseobj(sb, obj.gameObject, 0);
+            }
+            File.WriteAllText(@"GOs.txt", sb.ToString());*/
+            /*var sb = new StringBuilder();
             var rootobj = UnityEngine.SceneManagement.SceneManager.GetActiveScene().GetRootGameObjects();
             foreach (var obj in rootobj)
             {
                 recurseobj(sb, obj, 0);
             }
-            File.WriteAllText(@"GOs.txt", sb.ToString());
+            File.WriteAllText(@"GOs.txt", sb.ToString());*/
             //var cam = UnityEngine.Object.FindObjectOfType<RoR2.UICamera>();
             //var cam = UnityEngine.Object.FindObjectOfType<RoR2.UI.ItemInventoryDisplay>();
 
@@ -150,6 +170,7 @@ namespace RiskOfShame
         }
         private void OnGUI()
         {
+
         }
     }
 }

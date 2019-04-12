@@ -3,31 +3,75 @@ using UnityEngine;
 
 namespace RiskOfShame
 {
+    public class ChestRevealer : MonoBehaviour
+    {
+        public GameObject Lock;
+        void Awake()
+        {
+            Lock = Object.Instantiate<GameObject>(RoR2.TeleporterInteraction.instance.lockPrefab, transform.position, Quaternion.identity);
+            UnityEngine.Networking.NetworkServer.Spawn(Lock);
+        }
+        void Update()
+        {
+            var purchase = gameObject.GetComponent<RoR2.PurchaseInteraction>();
+            if (purchase != null && !purchase.available)
+            {
+                Destroy(Lock);
+                UnityEngine.Networking.NetworkServer.Destroy(Lock);
+            }
+            var barrel = gameObject.GetComponent<RoR2.BarrelInteraction>();
+            if (barrel != null && barrel.Networkopened)
+            {
+                Destroy(Lock);
+                UnityEngine.Networking.NetworkServer.Destroy(Lock);
+            }
+        }
+        void OnDisable()
+        {
+            Destroy(Lock);
+            UnityEngine.Networking.NetworkServer.Destroy(Lock);
+        }
+    }
     public class RevealChests : MonoBehaviour
     {
-        List<UnityEngine.GameObject> Locks = new List<GameObject>();
         private void OnEnable()
         {
-            Locks.Clear();
-            var purchasables = UnityEngine.Object.FindObjectsOfType<RoR2.PurchaseInteraction>();
+            var purchasables = RoR2.PurchaseInteraction.readOnlyInstancesList;// Object.FindObjectsOfType<RoR2.PurchaseInteraction>();
             foreach (var purchase in purchasables)
             {
-                if (purchase.available)
+                var revealer = purchase.gameObject.GetComponent<ChestRevealer>();
+                if (revealer == null && purchase.available)
                 {
-                    Locks.Add(UnityEngine.Object.Instantiate<GameObject>(RoR2.TeleporterInteraction.instance.lockPrefab, purchase.transform.position, Quaternion.identity));
+                    purchase.gameObject.AddComponent<ChestRevealer>();
                 }
             }
-            var barrels = UnityEngine.Object.FindObjectsOfType<RoR2.BarrelInteraction>();
+            var barrels = Object.FindObjectsOfType<RoR2.BarrelInteraction>();
             foreach (var barrel in barrels)
             {
-                if (!barrel.Networkopened)
-                    Locks.Add(UnityEngine.Object.Instantiate<GameObject>(RoR2.TeleporterInteraction.instance.lockPrefab, barrel.transform.position, Quaternion.identity));
+                var revealer = barrel.gameObject.GetComponent<ChestRevealer>();
+                if (revealer == null && !barrel.Networkopened)
+                {
+                    barrel.gameObject.AddComponent<ChestRevealer>();
+                }
             }
         }
         private void OnDisable()
         {
-            foreach(var go in Locks)
-                GameObject.Destroy(go);
+            var revealers = Object.FindObjectsOfType<ChestRevealer>();
+            foreach(var revealer in revealers)
+            {
+                Destroy(revealer.Lock);
+                Destroy(revealer);
+            }
+        }
+        int InitialStage = RoR2.Run.instance.stageClearCount;
+        void Update()
+        {
+            if (InitialStage != RoR2.Run.instance.stageClearCount && RoR2.LocalUserManager.GetFirstLocalUser().cachedBody.isSprinting)
+            {
+                InitialStage = RoR2.Run.instance.stageClearCount;
+                OnEnable();
+            }
         }
     }
 }

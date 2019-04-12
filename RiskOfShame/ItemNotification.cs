@@ -11,14 +11,14 @@ namespace RiskOfShame
     {
         private void Update()
         {
-            var droppedItems = UnityEngine.Object.FindObjectsOfType<RoR2.PickupDropletController>();
+            var droppedItems = Object.FindObjectsOfType<RoR2.PickupDropletController>();
             foreach (var item in droppedItems)
             {
                 var itemGo = item.transform.gameObject;
                 if (itemGo.GetComponent<ChatNotified>() == null)
                 {
                     itemGo.AddComponent<ChatNotified>();
-                    RoR2.Chat.AddMessage(item.NetworkpickupIndex + " dropped!");
+                    RoR2.Chat.AddMessage(RoR2.Language.GetString(item.NetworkpickupIndex.GetPickupNameToken()) + " dropped!");
                     //var localUser = RoR2.LocalUserManager.GetFirstLocalUser();
                     //RoR2.Chat.SendBroadcastChat(new RoR2.Chat.UserChatMessage { sender = localUser.cachedMasterObject, text = item.NetworkpickupIndex + " dropped!" });
                 }
