@@ -10,9 +10,9 @@ namespace RiskOfShame
         {
             var holo = gameObject.GetComponent<RoR2.Hologram.HologramProjector>();
             holo.displayDistance = 10000.0f;
-            //var holoContent = holo.GetField<GameObject>("hologramContentInstance").GetComponent<RoR2.CostHologramContent>();
-            //holoContent.targetTextMesh.text = Display;
-            //holoContent.targetTextMesh.fontSize = 20.0f;
+            var holoContent = holo.GetField<GameObject>("hologramContentInstance").GetComponent<RoR2.CostHologramContent>();
+            holoContent.targetTextMesh.text = Display;
+            holoContent.targetTextMesh.fontSize = 20.0f;
         }
         void OnDisable()
         {
