@@ -2,12 +2,8 @@
 
 namespace RiskOfShame
 {
-    public class SkipLevel : MonoBehaviour
+    public class SkipCurrentLevel : MonoBehaviour
     {
-        void Awake()
-        {
-            enabled = false;
-        }
         private void OnEnable()
         {
             RoR2.Stage.instance.BeginAdvanceStage(RoR2.Run.instance.nextStageScene);

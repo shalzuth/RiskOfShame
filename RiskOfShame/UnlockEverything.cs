@@ -4,12 +4,8 @@ using UnityEngine;
 
 namespace RiskOfShame
 {
-    public class Unlock : MonoBehaviour
+    public class UnlockEverything : MonoBehaviour
     {
-        void Awake()
-        {
-            enabled = false;
-        }
         private void OnEnable()
         {
             var unlockables = typeof(RoR2.UnlockableCatalog).GetStaticField<Dictionary<String, RoR2.UnlockableDef>>("nameToDefTable");
@@ -31,6 +27,7 @@ namespace RiskOfShame
                 profile.DiscoverPickup(new RoR2.PickupIndex((RoR2.ItemIndex)i));
                 profile.DiscoverPickup(new RoR2.PickupIndex((RoR2.EquipmentIndex)i));
             }
+            enabled = false;
         }
     }
 }

@@ -76,7 +76,18 @@ namespace RiskOfShame
         {
             GUILayout.BeginVertical(GUI.skin.box);
             {
-                var rootObjects = UnityEngine.SceneManagement.SceneManager.GetActiveScene().GetRootGameObjects();
+                GUILayout.BeginHorizontal();
+                {
+                    SearchText = GUILayout.TextField(SearchText, GUILayout.ExpandWidth(true));
+                    if (GUILayout.Button("Search", GUILayout.ExpandWidth(false)))
+                        { }
+                }
+                GUILayout.EndHorizontal();
+                var rootObjects = new List<GameObject>();
+                foreach (Transform xform in GameObject.FindObjectsOfType<Transform>())
+                    if (xform.parent == null)
+                        rootObjects.Add(xform.gameObject);
+                //var rootObjects = UnityEngine.SceneManagement.SceneManager.GetActiveScene().GetRootGameObjects();
                 if (SelectedGameObject == null)
                     SelectedGameObject = rootObjects.First().transform;
                 HierarchyScrollPos = GUILayout.BeginScrollView(HierarchyScrollPos, GUILayout.Height(HierarchyWindow.height / 3), GUILayout.ExpandWidth(true));
