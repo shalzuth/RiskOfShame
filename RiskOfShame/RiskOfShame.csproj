@@ -62,6 +62,10 @@
     <Reference Include="UnityEngine.Networking">
       <HintPath>D:\SteamLibrary\steamapps\common\Risk of Rain 2\Risk of Rain 2_Data\Managed\UnityEngine.Networking.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.TextRenderingModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>D:\SteamLibrary\steamapps\common\Risk of Rain 2\Risk of Rain 2_Data\Managed\UnityEngine.TextRenderingModule.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>D:\SteamLibrary\steamapps\common\Risk of Rain 2\Risk of Rain 2_Data\Managed\UnityEngine.UI.dll</HintPath>
     </Reference>
@@ -80,6 +84,7 @@
     <Compile Include="ItemNotification.cs" />
     <Compile Include="RemoveEmptyObjects.cs" />
     <Compile Include="RevealLoot.cs" />
+    <Compile Include="SceneDebugger.cs" />
     <Compile Include="Testing.cs" />
     <Compile Include="DropItem.cs" />
     <Compile Include="Extensions.cs" />

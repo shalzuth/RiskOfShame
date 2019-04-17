@@ -49,6 +49,7 @@ namespace RiskOfShame.Loader.Core
         {
             var options = new Dictionary<string, string>();// { { "CompilerVersion", "v3.5" } };// { { "CompilerVersion", "v4.0" } };
             CSharpCodeProvider codeProvider = new CSharpCodeProvider(options);
+            CodeDomProvider codeProvider2 = new Microsoft.CodeDom.Providers.DotNetCompilerPlatform.CSharpCodeProvider();
             CompilerParameters compilerParameters = new CompilerParameters
             {
                 GenerateExecutable = false,
@@ -87,11 +88,13 @@ namespace RiskOfShame.Loader.Core
             var sources = new List<String>();
             foreach (var sourceFile in sourceFiles)
             {
+                if (sourceFile.Contains(@"obj\\"))
+                    continue;
                 var source = File.ReadAllText(sourceFile);
                 source = source.Replace("RiskOfShame", randString);
                 sources.Add(source);
             }
-            var result = codeProvider.CompileAssemblyFromSource(compilerParameters, sources.ToArray());
+            var result = codeProvider2.CompileAssemblyFromSource(compilerParameters, sources.ToArray());
             return File.ReadAllBytes(randString + ".dll");
             /*using (MemoryStream stream = new MemoryStream())
             {

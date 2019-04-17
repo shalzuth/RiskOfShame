@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -48,9 +49,18 @@ namespace RiskOfShame
         {
             return (T)GetField(obj, fieldName, typeof(T).Name);
         }
-        public static T GetStaticField<T>(this Type obj, String fieldName)
+        public static T GetStaticField<T>(this Type obj, String fieldName, Boolean isProperty = false)
         {
+            if (isProperty)
+            {
+                var prop = obj.GetProperty(fieldName, flags);
+                if (prop == null)
+                    return default(T);
+                return (T)prop.GetValue(null);
+            }
             var field = obj.GetField(fieldName, flags);
+            if (field == null)
+                return default(T);
             return (T)field.GetValue(null);
         }
         public static void SetStaticField<T>(this Type obj, String fieldName, T val)
@@ -110,6 +120,36 @@ namespace RiskOfShame
         public static T CreateInstance<T>(params Object[] paramArray)
         {
             return (T)Activator.CreateInstance(typeof(T), args: paramArray);
+        }
+
+        public static void TryAdd<T>(this HashSet<T> hashSet, T obj, Action act = null)
+        {
+            if (!hashSet.Contains(obj))
+            {
+                hashSet.Add(obj);
+                act?.Invoke();
+            }
+        }
+        public static void TryRemove<T>(this HashSet<T> hashSet, T obj, Action act = null)
+        {
+            if (hashSet.Contains(obj))
+            {
+                hashSet.Remove(obj);
+                act?.Invoke();
+            }
+        }
+        public static void TryToggle<T>(this HashSet<T> hashSet, T obj)
+        {
+            if (hashSet.Contains(obj))
+                hashSet.Remove(obj);
+            else
+                hashSet.Add(obj);
+        }
+        public static Boolean TryGetValue<Key>(this ConcurrentDictionary<Key, Boolean> dict, Key obj)
+        {
+            if (dict.ContainsKey(obj))
+                return dict[obj];
+            return false;
         }
     }
 }

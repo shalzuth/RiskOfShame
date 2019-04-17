@@ -36,7 +36,7 @@ namespace RiskOfShame
     {
         private void OnEnable()
         {
-            var purchasables = RoR2.PurchaseInteraction.readOnlyInstancesList;// Object.FindObjectsOfType<RoR2.PurchaseInteraction>();
+            var purchasables = Object.FindObjectsOfType<RoR2.PurchaseInteraction>();
             foreach (var purchase in purchasables)
             {
                 var revealer = purchase.gameObject.GetComponent<ChestRevealer>();

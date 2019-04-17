@@ -24,7 +24,7 @@ namespace RiskOfShame
     {
         private void OnEnable()
         {
-            var purchasables = RoR2.PurchaseInteraction.readOnlyInstancesList;
+            var purchasables = Object.FindObjectsOfType<RoR2.PurchaseInteraction>();
             foreach (var purchase in purchasables)
             {
                 var chest = purchase.gameObject.GetComponent<RoR2.ChestBehavior>();
