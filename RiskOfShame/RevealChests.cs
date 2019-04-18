@@ -3,37 +3,37 @@ using UnityEngine;
 
 namespace RiskOfShame
 {
-    public class ChestRevealer : MonoBehaviour
-    {
-        public GameObject Lock;
-        void Awake()
-        {
-            Lock = Object.Instantiate<GameObject>(RoR2.TeleporterInteraction.instance.lockPrefab, transform.position, Quaternion.identity);
-            UnityEngine.Networking.NetworkServer.Spawn(Lock);
-        }
-        void Update()
-        {
-            var purchase = gameObject.GetComponent<RoR2.PurchaseInteraction>();
-            if (purchase != null && !purchase.available)
-            {
-                Destroy(Lock);
-                UnityEngine.Networking.NetworkServer.Destroy(Lock);
-            }
-            var barrel = gameObject.GetComponent<RoR2.BarrelInteraction>();
-            if (barrel != null && barrel.Networkopened)
-            {
-                Destroy(Lock);
-                UnityEngine.Networking.NetworkServer.Destroy(Lock);
-            }
-        }
-        void OnDisable()
-        {
-            Destroy(Lock);
-            UnityEngine.Networking.NetworkServer.Destroy(Lock);
-        }
-    }
     public class RevealChests : MonoBehaviour
     {
+        class ChestRevealer : MonoBehaviour
+        {
+            public GameObject Lock;
+            void Awake()
+            {
+                Lock = Object.Instantiate<GameObject>(RoR2.TeleporterInteraction.instance.lockPrefab, transform.position, Quaternion.identity);
+                UnityEngine.Networking.NetworkServer.Spawn(Lock);
+            }
+            void Update()
+            {
+                var purchase = gameObject.GetComponent<RoR2.PurchaseInteraction>();
+                if (purchase != null && !purchase.available)
+                {
+                    Destroy(Lock);
+                    UnityEngine.Networking.NetworkServer.Destroy(Lock);
+                }
+                var barrel = gameObject.GetComponent<RoR2.BarrelInteraction>();
+                if (barrel != null && barrel.Networkopened)
+                {
+                    Destroy(Lock);
+                    UnityEngine.Networking.NetworkServer.Destroy(Lock);
+                }
+            }
+            void OnDisable()
+            {
+                Destroy(Lock);
+                UnityEngine.Networking.NetworkServer.Destroy(Lock);
+            }
+        }
         private void OnEnable()
         {
             var purchasables = Object.FindObjectsOfType<RoR2.PurchaseInteraction>();
@@ -67,7 +67,7 @@ namespace RiskOfShame
         int InitialStage = RoR2.Run.instance.stageClearCount;
         void Update()
         {
-            if (InitialStage != RoR2.Run.instance.stageClearCount && RoR2.LocalUserManager.GetFirstLocalUser().cachedBody.isSprinting)
+            if (InitialStage != RoR2.Run.instance?.stageClearCount && RoR2.LocalUserManager.GetFirstLocalUser()?.cachedBody?.isSprinting == true)
             {
                 InitialStage = RoR2.Run.instance.stageClearCount;
                 OnEnable();

@@ -20,7 +20,7 @@ namespace RiskOfShame
             return tooltip;
         }
         void Content(RoR2.UI.LogBook.PageBuilder builder)
-        {;
+        {
             builder.AddSimpleTextPanel(((ExtraData)builder.entry.extraData).Data);
             builder.AddNotesPanel(((ExtraData)builder.entry.extraData).Notes);
         }

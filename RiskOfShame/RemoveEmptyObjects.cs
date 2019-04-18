@@ -3,20 +3,20 @@ using UnityEngine;
 
 namespace RiskOfShame
 {
-    public class RemoveEmptyObject : MonoBehaviour
-    {
-        void Update()
-        {
-            var entityStateMachine = gameObject.GetComponent<RoR2.EntityStateMachine>();
-            if (entityStateMachine.state.GetType() == typeof(EntityStates.Barrel.Opened))
-            {
-                UnityEngine.Networking.NetworkServer.Destroy(gameObject);
-                Destroy(gameObject);
-            }
-        }
-    }
     public class RemoveEmptyObjects : MonoBehaviour
     {
+        public class RemoveEmptyObject : MonoBehaviour
+        {
+            void Update()
+            {
+                var entityStateMachine = gameObject.GetComponent<RoR2.EntityStateMachine>();
+                if (entityStateMachine.state.GetType() == typeof(EntityStates.Barrel.Opened))
+                {
+                    UnityEngine.Networking.NetworkServer.Destroy(gameObject);
+                    Destroy(gameObject);
+                }
+            }
+        }
         void OnEnable()
         {
             var purchasables = Object.FindObjectsOfType<RoR2.PurchaseInteraction>();
@@ -38,14 +38,12 @@ namespace RiskOfShame
         {
             var removers = Object.FindObjectsOfType<RemoveEmptyObject>();
             foreach (var remover in removers)
-            {
                 Destroy(remover);
-            }
         }
         int InitialStage = RoR2.Run.instance.stageClearCount;
         void Update()
         {
-            if (InitialStage != RoR2.Run.instance.stageClearCount && RoR2.LocalUserManager.GetFirstLocalUser().cachedBody.isSprinting)
+            if (InitialStage != RoR2.Run.instance?.stageClearCount && RoR2.LocalUserManager.GetFirstLocalUser()?.cachedBody?.isSprinting == true)
             {
                 InitialStage = RoR2.Run.instance.stageClearCount;
                 OnEnable();

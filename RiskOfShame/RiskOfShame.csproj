@@ -84,7 +84,7 @@
     <Compile Include="AdvancedTooltips.cs" />
     <Compile Include="AlwaysSprint.cs" />
     <Compile Include="BigParty.cs" />
-    <Compile Include="EnemySurvivors.cs" />
+    <Compile Include="PickSurvivor.cs" />
     <Compile Include="ItemNotification.cs" />
     <Compile Include="LogBookMenu.cs" />
     <Compile Include="RemoveEmptyObjects.cs" />

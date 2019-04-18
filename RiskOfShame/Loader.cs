@@ -14,7 +14,7 @@ namespace RiskOfShame
             BaseObject = new UnityEngine.GameObject("Risk Of Shame");
             UnityEngine.Object.DontDestroyOnLoad(BaseObject);
             BaseObject.SetActive(false);
-            var types = Assembly.GetExecutingAssembly().GetTypes().ToList().Where(t => t.BaseType == typeof(UnityEngine.MonoBehaviour));
+            var types = Assembly.GetExecutingAssembly().GetTypes().ToList().Where(t => t.BaseType == typeof(UnityEngine.MonoBehaviour) && !t.IsNested);
             foreach(var type in types)
             {
                 var component = (UnityEngine.MonoBehaviour)BaseObject.AddComponent(type);

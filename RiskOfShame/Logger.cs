@@ -27,7 +27,7 @@ namespace RiskOfShame
             { LogType.Warning, Color.yellow },
         };
 
-        const int margin = 500;
+        const int margin = 50;
 
         Rect windowRect = new Rect(margin, margin, Screen.width - (margin * 2), Screen.height - (margin * 2));
         Rect titleBarRect = new Rect(0, 0, 10000, 20);

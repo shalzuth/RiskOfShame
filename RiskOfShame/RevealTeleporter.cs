@@ -25,7 +25,7 @@ namespace RiskOfShame
         int InitialStage = RoR2.Run.instance.stageClearCount;
         void Update()
         {
-            if (InitialStage != RoR2.Run.instance.stageClearCount && RoR2.LocalUserManager.GetFirstLocalUser().cachedBody.isSprinting)
+            if (InitialStage != RoR2.Run.instance?.stageClearCount && RoR2.LocalUserManager.GetFirstLocalUser()?.cachedBody?.isSprinting == true)
             {
                 InitialStage = RoR2.Run.instance.stageClearCount;
                 OnEnable();

@@ -3,26 +3,26 @@ using UnityEngine;
 
 namespace RiskOfShame
 {
-    public class LootRevealer : MonoBehaviour
-    {
-        public string Display;
-        void LateUpdate()
-        {
-            var holo = gameObject.GetComponent<RoR2.Hologram.HologramProjector>();
-            holo.displayDistance = 10000.0f;
-            var holoContent = holo.GetField<GameObject>("hologramContentInstance").GetComponent<RoR2.CostHologramContent>();
-            holoContent.targetTextMesh.text = Display;
-            holoContent.targetTextMesh.fontSize = 20.0f;
-        }
-        void OnDisable()
-        {
-            var holo = gameObject.GetComponent<RoR2.Hologram.HologramProjector>();
-            holo.displayDistance = 15.0f;
-        }
-    }
     public class RevealLoot : MonoBehaviour
     {
-        private void OnEnable()
+        class LootRevealer : MonoBehaviour
+        {
+            public string Display;
+            void LateUpdate()
+            {
+                var holo = gameObject.GetComponent<RoR2.Hologram.HologramProjector>();
+                holo.displayDistance = 10000.0f;
+                var holoContent = holo.GetField<GameObject>("hologramContentInstance").GetComponent<RoR2.CostHologramContent>();
+                holoContent.targetTextMesh.text = Display;
+                holoContent.targetTextMesh.fontSize = 20.0f;
+            }
+            void OnDisable()
+            {
+                var holo = gameObject.GetComponent<RoR2.Hologram.HologramProjector>();
+                holo.displayDistance = 15.0f;
+            }
+        }
+        void OnEnable()
         {
             var purchasables = Object.FindObjectsOfType<RoR2.PurchaseInteraction>();
             foreach (var purchase in purchasables)
@@ -61,7 +61,7 @@ namespace RiskOfShame
                 }
             }
         }
-        private void OnDisable()
+        void OnDisable()
         {
             var revealers = Object.FindObjectsOfType<LootRevealer>();
             foreach (var revealer in revealers)
@@ -72,7 +72,7 @@ namespace RiskOfShame
         int InitialStage = RoR2.Run.instance.stageClearCount;
         void Update()
         {
-            if (InitialStage != RoR2.Run.instance.stageClearCount && RoR2.LocalUserManager.GetFirstLocalUser().cachedBody.isSprinting)
+            if (InitialStage != RoR2.Run.instance?.stageClearCount && RoR2.LocalUserManager.GetFirstLocalUser()?.cachedBody?.isSprinting == true)
             {
                 InitialStage = RoR2.Run.instance.stageClearCount;
                 OnEnable();

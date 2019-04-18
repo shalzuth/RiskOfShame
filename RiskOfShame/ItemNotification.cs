@@ -6,9 +6,9 @@ using UnityEngine.EventSystems;
 
 namespace RiskOfShame
 {
-    public class ChatNotified : MonoBehaviour { }
     public class ItemNotification : MonoBehaviour
     {
+        public class ChatNotified : MonoBehaviour { }
         private void Update()
         {
             var droppedItems = Object.FindObjectsOfType<RoR2.PickupDropletController>();
