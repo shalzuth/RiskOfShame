@@ -50,7 +50,6 @@ namespace RiskOfShame.Loader
             Status.Text = "Game Open - Injecting";
             try
             {
-                throw new Exception("");
                 String randString = "aa" + Guid.NewGuid().ToString().Substring(0, 8);
                 var gameDir = System.IO.Path.GetDirectoryName(ror2[0].MainModule.FileName);
                 var gameName = System.IO.Path.GetFileName(gameDir);
