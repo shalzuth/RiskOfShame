@@ -34,6 +34,10 @@ namespace RiskOfShame
                     {
                         GameObject newBody = RoR2.BodyCatalog.FindBodyPrefab(body.Key);
                         if (newBody == null)
+                            return;
+                        var localUser = RoR2.LocalUserManager.GetFirstLocalUser();
+                        var master = localUser.cachedMasterController?.master;
+                        if (master == null)
                         {
                             var user = ((RoR2.UI.MPEventSystem)UnityEngine.EventSystems.EventSystem.current).localUser;
                             if (user.eventSystem == UnityEngine.EventSystems.EventSystem.current)
@@ -42,11 +46,8 @@ namespace RiskOfShame
                                     return;
                                 user.currentNetworkUser.CallCmdSetBodyPreference(body.Value);
                             }
-                            enabled = false;
                             return;
                         }
-                        var localUser = RoR2.LocalUserManager.GetFirstLocalUser();
-                        var master = localUser.cachedMasterController.master;
                         master.bodyPrefab = newBody;
                         master.Respawn(master.GetBody().transform.position, master.GetBody().transform.rotation);
                         enabled = false;
