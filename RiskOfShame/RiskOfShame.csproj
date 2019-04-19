@@ -95,6 +95,7 @@
     <Compile Include="RemoveEmptyObjects.cs" />
     <Compile Include="RevealLoot.cs" />
     <Compile Include="SceneDebugger.cs" />
+    <Compile Include="SpawnChanceShrineOnTeleporter.cs" />
     <Compile Include="Testing.cs" />
     <Compile Include="DropItem.cs" />
     <Compile Include="Extensions.cs" />

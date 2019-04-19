@@ -10,14 +10,14 @@ namespace RiskOfShame
             void Update()
             {
                 var entityStateMachine = gameObject.GetComponent<RoR2.EntityStateMachine>();
-                if (entityStateMachine.state.GetType() == typeof(EntityStates.Barrel.Opened))
+                if (entityStateMachine?.state?.GetType() == typeof(EntityStates.Barrel.Opened))
                 {
                     UnityEngine.Networking.NetworkServer.Destroy(gameObject);
                     Destroy(gameObject);
                 }
             }
         }
-        void OnEnable()
+        void Update()
         {
             var purchasables = Object.FindObjectsOfType<RoR2.PurchaseInteraction>();
             foreach (var purchase in purchasables)
@@ -39,15 +39,6 @@ namespace RiskOfShame
             var removers = Object.FindObjectsOfType<RemoveEmptyObject>();
             foreach (var remover in removers)
                 Destroy(remover);
-        }
-        int InitialStage = RoR2.Run.instance.stageClearCount;
-        void Update()
-        {
-            if (InitialStage != RoR2.Run.instance?.stageClearCount && RoR2.LocalUserManager.GetFirstLocalUser()?.cachedBody?.isSprinting == true)
-            {
-                InitialStage = RoR2.Run.instance.stageClearCount;
-                OnEnable();
-            }
         }
     }
 }

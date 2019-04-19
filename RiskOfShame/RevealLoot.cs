@@ -11,18 +11,27 @@ namespace RiskOfShame
             void LateUpdate()
             {
                 var holo = gameObject.GetComponent<RoR2.Hologram.HologramProjector>();
+                if (holo == null)
+                    return;
                 holo.displayDistance = 10000.0f;
-                var holoContent = holo.GetField<GameObject>("hologramContentInstance").GetComponent<RoR2.CostHologramContent>();
+                var content = holo.GetField<GameObject>("hologramContentInstance");
+                if (content == null)
+                    return;
+                var holoContent = content.GetComponent<RoR2.CostHologramContent>();
+                if (holoContent == null || holoContent.targetTextMesh == null)
+                    return;
                 holoContent.targetTextMesh.text = Display;
                 holoContent.targetTextMesh.fontSize = 20.0f;
             }
             void OnDisable()
             {
                 var holo = gameObject.GetComponent<RoR2.Hologram.HologramProjector>();
+                if (holo == null)
+                    return;
                 holo.displayDistance = 15.0f;
             }
         }
-        void OnEnable()
+        void Update()
         {
             var purchasables = Object.FindObjectsOfType<RoR2.PurchaseInteraction>();
             foreach (var purchase in purchasables)
@@ -67,15 +76,6 @@ namespace RiskOfShame
             foreach (var revealer in revealers)
             {
                 Destroy(revealer);
-            }
-        }
-        int InitialStage = RoR2.Run.instance.stageClearCount;
-        void Update()
-        {
-            if (InitialStage != RoR2.Run.instance?.stageClearCount && RoR2.LocalUserManager.GetFirstLocalUser()?.cachedBody?.isSprinting == true)
-            {
-                InitialStage = RoR2.Run.instance.stageClearCount;
-                OnEnable();
             }
         }
     }

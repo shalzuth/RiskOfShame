@@ -18,7 +18,7 @@ namespace RiskOfShame
                 if (itemGo.GetComponent<ChatNotified>() == null)
                 {
                     itemGo.AddComponent<ChatNotified>();
-                    RoR2.Chat.AddMessage(RoR2.Language.GetString(item.NetworkpickupIndex.GetPickupNameToken()) + " dropped!");
+                    RoR2.Chat.AddMessage(RoR2.Util.GenerateColoredString(RoR2.Language.GetString(item.NetworkpickupIndex.GetPickupNameToken()) + " dropped", item.NetworkpickupIndex.GetPickupColor()));
                     //var localUser = RoR2.LocalUserManager.GetFirstLocalUser();
                     //RoR2.Chat.SendBroadcastChat(new RoR2.Chat.UserChatMessage { sender = localUser.cachedMasterObject, text = item.NetworkpickupIndex + " dropped!" });
                 }
