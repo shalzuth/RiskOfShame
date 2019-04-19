@@ -38,7 +38,6 @@ namespace RiskOfShame.Loader
         public void Init()
         {
             Status.Text = "Waiting for Risk of Rain 2 to open";
-            String randString = "aa" + Guid.NewGuid().ToString().Substring(0, 8);
             var ror2 = System.Diagnostics.Process.GetProcessesByName("Risk of Rain 2");
             if (ror2.Length == 0)
                 Console.WriteLine("Waiting for Risk of Rain 2 to open...");
@@ -49,16 +48,25 @@ namespace RiskOfShame.Loader
                 ror2 = System.Diagnostics.Process.GetProcessesByName("Risk of Rain 2");
             }
             Status.Text = "Game Open - Injecting";
-            var gameDir = System.IO.Path.GetDirectoryName(ror2[0].MainModule.FileName);
-            var gameName = System.IO.Path.GetFileName(gameDir);
-            var unityDllPath = gameDir + @"\" + gameName + @"_Data\Managed\";
-            Status.Text = "Injecting - Game @ " + unityDllPath;
-            Compiler.UnityDllPath = unityDllPath;
-            Compiler.UpdateSources();
-            Injector.Inject("Risk of Rain 2", Compiler.CompileDll(randString), randString, "Loader", "Load");
-            System.IO.File.Delete(randString + ".dll");
-            if (System.IO.File.Exists(randString + ".pdb"))
-                System.IO.File.Delete(randString + ".pdb");
+            try
+            {
+                throw new Exception("");
+                String randString = "aa" + Guid.NewGuid().ToString().Substring(0, 8);
+                var gameDir = System.IO.Path.GetDirectoryName(ror2[0].MainModule.FileName);
+                var gameName = System.IO.Path.GetFileName(gameDir);
+                var unityDllPath = gameDir + @"\" + gameName + @"_Data\Managed\";
+                Compiler.UnityDllPath = unityDllPath;
+                Status.Text = "Injecting - Game @ " + unityDllPath;
+                Compiler.UpdateSources();
+                Injector.Inject("Risk of Rain 2", Compiler.CompileDll(randString), randString, "Loader", "Load");
+                System.IO.File.Delete(randString + ".dll");
+                if (System.IO.File.Exists(randString + ".pdb"))
+                    System.IO.File.Delete(randString + ".pdb");
+            }
+            catch
+            {
+                Injector.Inject("Risk of Rain 2", Properties.Resources.RiskOfShame, "RiskOfShame", "Loader", "Load");
+            }
             Status.Text = "Injected, closing app shortly";
             Thread.Sleep(10000);
             Environment.Exit(0);

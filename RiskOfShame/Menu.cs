@@ -41,6 +41,8 @@ namespace RiskOfShame
                 mono.enabled = GUILayout.Toggle(mono.enabled, mono.GetType().Name);
             }
             var unload = GUILayout.Toggle(false, "Unload");
+            if (unload)
+                Destroy(Loader.BaseObject);
             GUI.DragWindow();
         }
     }
