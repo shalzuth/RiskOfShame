@@ -30,7 +30,7 @@ namespace RiskOfShame
                 {
                     if (body.Key.Contains("(Clone)"))
                         continue;
-                    if (GUILayout.Button(body.Key))
+                    if (GUILayout.Button(body.Key.Replace("Body","")))
                     {
                         GameObject newBody = RoR2.BodyCatalog.FindBodyPrefab(body.Key);
                         if (newBody == null)
