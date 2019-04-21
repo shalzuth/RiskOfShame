@@ -88,6 +88,7 @@
     <Compile Include="AdvancedTooltips.cs" />
     <Compile Include="AlwaysSprint.cs" />
     <Compile Include="BigParty.cs" />
+    <Compile Include="ItemSpawner.cs" />
     <Compile Include="MoveUI.cs" />
     <Compile Include="PickSurvivor.cs" />
     <Compile Include="ItemNotification.cs" />

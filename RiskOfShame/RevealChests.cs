@@ -64,10 +64,10 @@ namespace RiskOfShame
                 Destroy(revealer);
             }
         }
-        int InitialStage = RoR2.Run.instance.stageClearCount;
+        int InitialStage = 0;
         void Update()
         {
-            if (InitialStage != RoR2.Run.instance?.stageClearCount && RoR2.LocalUserManager.GetFirstLocalUser()?.cachedBody?.isSprinting == true)
+            if (RoR2.Run.instance && InitialStage != RoR2.Run.instance?.stageClearCount && RoR2.LocalUserManager.GetFirstLocalUser()?.cachedBody?.isSprinting == true)
             {
                 InitialStage = RoR2.Run.instance.stageClearCount;
                 OnEnable();
