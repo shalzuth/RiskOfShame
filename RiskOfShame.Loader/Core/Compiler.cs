@@ -95,6 +95,13 @@ namespace RiskOfShame.Loader.Core
                 sources.Add(source);
             }
             var result = codeProvider2.CompileAssemblyFromSource(compilerParameters, sources.ToArray());
+            if (result.Errors.Count > 0)
+            {
+                var sb = new StringBuilder();
+                foreach(CompilerError error in result.Errors)
+                    sb.AppendLine(error.ToString());
+                throw new Exception(sb.ToString());
+            }
             return File.ReadAllBytes(randString + ".dll");
             /*using (MemoryStream stream = new MemoryStream())
             {
