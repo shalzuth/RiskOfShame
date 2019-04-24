@@ -27,7 +27,8 @@ namespace RiskOfShame
             ItemScrollPos = GUILayout.BeginScrollView(ItemScrollPos);
             {
                 var localUser = RoR2.LocalUserManager.GetFirstLocalUser();
-                var master = localUser.cachedMasterController?.master;
+                if (localUser == null || localUser.cachedMasterController == null || localUser.cachedMasterController.master == null) return;
+                var master = localUser.cachedMasterController.master;
                 var body = master.GetBody();
                 for (int i = (int)RoR2.ItemIndex.Syringe; i < (int)RoR2.ItemIndex.Count; i++)
                 {

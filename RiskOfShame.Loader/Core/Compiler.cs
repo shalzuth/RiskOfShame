@@ -49,7 +49,7 @@ namespace RiskOfShame.Loader.Core
         {
             var options = new Dictionary<string, string>();// { { "CompilerVersion", "v3.5" } };// { { "CompilerVersion", "v4.0" } };
             CSharpCodeProvider codeProvider = new CSharpCodeProvider(options);
-            CodeDomProvider codeProvider2 = new Microsoft.CodeDom.Providers.DotNetCompilerPlatform.CSharpCodeProvider();
+            //CodeDomProvider codeProvider2 = new Microsoft.CodeDom.Providers.DotNetCompilerPlatform.CSharpCodeProvider();
             CompilerParameters compilerParameters = new CompilerParameters
             {
                 GenerateExecutable = false,
@@ -94,7 +94,8 @@ namespace RiskOfShame.Loader.Core
                 source = source.Replace("RiskOfShame", randString);
                 sources.Add(source);
             }
-            var result = codeProvider2.CompileAssemblyFromSource(compilerParameters, sources.ToArray());
+            //var result = codeProvider.CompileAssemblyFromFile(compilerParameters, sourceFiles);
+            var result = codeProvider.CompileAssemblyFromSource(compilerParameters, sources.ToArray());
             if (result.Errors.Count > 0)
             {
                 var sb = new StringBuilder();

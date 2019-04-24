@@ -10,7 +10,7 @@ namespace RiskOfShame
             void Update()
             {
                 var entityStateMachine = gameObject.GetComponent<RoR2.EntityStateMachine>();
-                if (entityStateMachine?.state?.GetType() == typeof(EntityStates.Barrel.Opened))
+                if (entityStateMachine.state.GetType() == typeof(EntityStates.Barrel.Opened))
                 {
                     UnityEngine.Networking.NetworkServer.Destroy(gameObject);
                     Destroy(gameObject);

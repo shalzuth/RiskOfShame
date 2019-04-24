@@ -66,7 +66,16 @@ namespace RiskOfShame
                 var itemPath = "";
                 if (purchase.gameObject.name.Contains("NewtStatue"))
                     itemPath = "Textures/MiscIcons/texShrineIconOutlined";
-                if (purchase.gameObject?.GetComponent<RoR2.ChestBehavior>() is MonoBehaviour chest)
+                var chest = purchase.gameObject.GetComponent<RoR2.ChestBehavior>();
+                var shop = purchase.gameObject.GetComponent<RoR2.ShopTerminalBehavior>();
+                var blood = purchase.gameObject.GetComponent<RoR2.ShrineBloodBehavior>();
+                var boss = purchase.gameObject.GetComponent<RoR2.ShrineBossBehavior>();
+                var chance = purchase.gameObject.GetComponent<RoR2.ShrineChanceBehavior>();
+                var combat = purchase.gameObject.GetComponent<RoR2.ShrineCombatBehavior>();
+                var healing = purchase.gameObject.GetComponent<RoR2.ShrineHealingBehavior>();
+                var order = purchase.gameObject.GetComponent<RoR2.ShrineRestackBehavior>();
+                var summon = purchase.gameObject.GetComponent<RoR2.SummonMasterBehavior>();
+                if (chest)
                 {
                     var pickupIndex = chest.GetField<RoR2.PickupIndex>("dropPickup");
                     if (pickupIndex == RoR2.PickupIndex.none)
@@ -90,22 +99,22 @@ namespace RiskOfShame
                     else
                         itemPath = GetPickupItemPatch(pickupIndex);
                 }
-                else if (purchase.gameObject?.GetComponent<RoR2.ShopTerminalBehavior>() is MonoBehaviour shop)
+                else if (shop)
                     itemPath = GetPickupItemPatch(shop.GetField<RoR2.PickupIndex>("pickupIndex"));
-                else if (purchase.gameObject?.GetComponent<RoR2.ShrineBloodBehavior>() is RoR2.ShrineBloodBehavior blood)
-                    itemPath = "Textures/ShrineSymbols/" + blood.symbolTransform?.GetComponent<MeshRenderer>().material?.mainTexture?.name;
-                else if (purchase.gameObject?.GetComponent<RoR2.ShrineBossBehavior>() is RoR2.ShrineBossBehavior boss)
-                    itemPath = "Textures/ShrineSymbols/" + boss.symbolTransform?.GetComponent<MeshRenderer>().material?.mainTexture?.name;
-                else if (purchase.gameObject?.GetComponent<RoR2.ShrineChanceBehavior>() is RoR2.ShrineChanceBehavior chance)
-                    itemPath = "Textures/ShrineSymbols/" + chance.symbolTransform?.GetComponent<MeshRenderer>().material?.mainTexture?.name;
-                else if (purchase.gameObject?.GetComponent<RoR2.ShrineCombatBehavior>() is RoR2.ShrineCombatBehavior combat)
-                    itemPath = "Textures/ShrineSymbols/" + combat.symbolTransform?.GetComponent<MeshRenderer>().material?.mainTexture?.name;
-                else if (purchase.gameObject?.GetComponent<RoR2.ShrineHealingBehavior>() is RoR2.ShrineHealingBehavior healing)
-                    itemPath = "Textures/ShrineSymbols/" + healing.symbolTransform?.GetComponent<MeshRenderer>().material?.mainTexture?.name;
-                else if (purchase.gameObject?.GetComponent<RoR2.ShrineRestackBehavior>() is RoR2.ShrineRestackBehavior order)
-                    itemPath = "Textures/ShrineSymbols/" + order.symbolTransform?.GetComponent<MeshRenderer>().material?.mainTexture?.name;
-                else if (purchase.gameObject?.GetComponent<RoR2.SummonMasterBehavior>() is RoR2.SummonMasterBehavior summon)
-                    itemPath = "Textures/BodyIcons/" + summon.masterPrefab?.GetComponent<RoR2.CharacterMaster>()?.bodyPrefab?.GetComponent<RoR2.CharacterBody>()?.portraitIcon?.name;
+                else if (blood)
+                    itemPath = "Textures/ShrineSymbols/" + blood.symbolTransform.GetComponent<MeshRenderer>().material.mainTexture.name;
+                else if (boss)
+                    itemPath = "Textures/ShrineSymbols/" + boss.symbolTransform.GetComponent<MeshRenderer>().material.mainTexture.name;
+                else if (chance)
+                    itemPath = "Textures/ShrineSymbols/" + chance.symbolTransform.GetComponent<MeshRenderer>().material.mainTexture.name;
+                else if (combat)
+                    itemPath = "Textures/ShrineSymbols/" + combat.symbolTransform.GetComponent<MeshRenderer>().material.mainTexture.name;
+                else if (healing)
+                    itemPath = "Textures/ShrineSymbols/" + healing.symbolTransform.GetComponent<MeshRenderer>().material.mainTexture.name;
+                else if (order)
+                    itemPath = "Textures/ShrineSymbols/" + order.symbolTransform.GetComponent<MeshRenderer>().material.mainTexture.name;
+                else if (summon)
+                    itemPath = "Textures/BodyIcons/" + summon.masterPrefab.GetComponent<RoR2.CharacterMaster>().bodyPrefab.GetComponent<RoR2.CharacterBody>().portraitIcon.name;
                 DrawIcon(itemPath, purchase.transform.position);
             }
             foreach (var barrel in Barrels)

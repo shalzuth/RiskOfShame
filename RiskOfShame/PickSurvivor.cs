@@ -36,7 +36,8 @@ namespace RiskOfShame
                         if (newBody == null)
                             return;
                         var localUser = RoR2.LocalUserManager.GetFirstLocalUser();
-                        var master = localUser.cachedMasterController?.master;
+                        if (localUser == null || localUser.cachedMasterController == null || localUser.cachedMasterController.master == null) return;
+                        var master = localUser.cachedMasterController.master;
                         if (master == null)
                         {
                             var user = ((RoR2.UI.MPEventSystem)UnityEngine.EventSystems.EventSystem.current).localUser;

@@ -125,8 +125,9 @@ namespace RiskOfShame
                     {
                         GUILayout.BeginHorizontal(GUI.skin.box);
                         {
-                            if (component is Behaviour behavior)
-                                behavior.enabled = GUILayout.Toggle(behavior.enabled, "", GUILayout.ExpandWidth(false));
+                           
+                            if (component is Behaviour)
+                                (component as Behaviour).enabled = GUILayout.Toggle((component as Behaviour).enabled, "", GUILayout.ExpandWidth(false));
 
                             GUILayout.Label(component.GetType().Name + " : " + component.GetType().Namespace);
                             GUILayout.FlexibleSpace();

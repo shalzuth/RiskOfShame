@@ -127,7 +127,7 @@ namespace RiskOfShame
             if (!hashSet.Contains(obj))
             {
                 hashSet.Add(obj);
-                act?.Invoke();
+                if (act != null) act.Invoke();
             }
         }
         public static void TryRemove<T>(this HashSet<T> hashSet, T obj, Action act = null)
@@ -135,7 +135,7 @@ namespace RiskOfShame
             if (hashSet.Contains(obj))
             {
                 hashSet.Remove(obj);
-                act?.Invoke();
+                if (act != null) act.Invoke();
             }
         }
         public static void TryToggle<T>(this HashSet<T> hashSet, T obj)

@@ -17,7 +17,8 @@ namespace RiskOfShame
         void Update()
         {
             var localUser = RoR2.LocalUserManager.GetFirstLocalUser();
-            var master = localUser.cachedMasterController?.master;
+            if (localUser == null || localUser.cachedMasterController == null || localUser.cachedMasterController.master == null) return;
+            var master = localUser.cachedMasterController.master;
             Body = master.GetBody();
             Inventory = master.inventory;
             var huds = typeof(RoR2.UI.HUD).GetStaticField<List<RoR2.UI.HUD>>("instancesList");
