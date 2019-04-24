@@ -1,4 +1,4 @@
- ## How to Run
+## How to Run
 - Download https://github.com/shalzuth/RiskOfShame/releases/download/beta/RiskOfShame.Loader.exe
 - Launch Game
 - Launch Exe, this will download https://github.com/shalzuth/RiskOfShame/tree/master/RiskOfShame and inject it

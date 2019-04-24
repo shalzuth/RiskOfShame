@@ -86,15 +86,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdvancedTooltips.cs" />
+    <Compile Include="AimBot.cs" />
     <Compile Include="AlwaysSprint.cs" />
     <Compile Include="BigParty.cs" />
+    <Compile Include="ExtraSensoryPerception.cs" />
     <Compile Include="ItemSpawner.cs" />
     <Compile Include="MoveUI.cs" />
+    <Compile Include="ParticipatingPlayers.cs" />
     <Compile Include="PickSurvivor.cs" />
     <Compile Include="ItemNotification.cs" />
     <Compile Include="LogBookMenu.cs" />
     <Compile Include="RemoveEmptyObjects.cs" />
-    <Compile Include="RevealLoot.cs" />
     <Compile Include="SceneDebugger.cs" />
     <Compile Include="ChanceShrineOnEnd.cs" />
     <Compile Include="Testing.cs" />
@@ -104,8 +106,6 @@
     <Compile Include="Logger.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RevealChests.cs" />
-    <Compile Include="RevealTeleporter.cs" />
     <Compile Include="SkipCurrentLevel.cs" />
     <Compile Include="UnlockEverything.cs" />
   </ItemGroup>

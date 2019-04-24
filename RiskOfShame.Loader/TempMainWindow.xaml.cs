@@ -67,7 +67,7 @@ namespace RiskOfShame.Loader
                 Injector.Inject("Risk of Rain 2", Properties.Resources.RiskOfShame, "RiskOfShame", "Loader", "Load");
             }
             Status.Text = "Injected, closing app shortly";
-            Thread.Sleep(10000);
+            //Thread.Sleep(10000);
             Environment.Exit(0);
         }
     }

@@ -10,7 +10,7 @@ namespace RiskOfShame
         static Int32 MenuWidth = 150;
         Int32 MenuId;
         Rect MenuWindow = new Rect(Margin, Margin, MenuWidth, 50);
-        static Boolean CursorIsVisible()
+        public static Boolean CursorIsVisible()
         {
             foreach (var mpeventSystem in RoR2.UI.MPEventSystem.readOnlyInstancesList)
                 if (mpeventSystem.isCursorVisible)

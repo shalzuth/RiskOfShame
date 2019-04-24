@@ -128,7 +128,7 @@ namespace RiskOfShame
             RoR2.RuleCatalog.allCategoryDefs.FirstOrDefault(c => c.displayToken == "RULE_HEADER_MISC").hiddenTest = new Func<bool>(False);*/
 
             RoR2.LocalUserManager.GetFirstLocalUser().cachedMasterController.master.money = 1000;
-            RoR2.LocalUserManager.GetFirstLocalUser().cachedBody.baseMoveSpeed = 20.0f;
+            RoR2.LocalUserManager.GetFirstLocalUser().cachedBody.baseMoveSpeed = 40.0f;
             RoR2.LocalUserManager.GetFirstLocalUser().cachedBody.baseJumpCount = 5;
 
             RoR2.LocalUserManager.GetFirstLocalUser().cachedBody.healthComponent.godMode= true;
