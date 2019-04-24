@@ -1,8 +1,12 @@
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
+
 namespace RiskOfShame
 {
     public class AdvancedTooltips : MonoBehaviour
     {
-        void OnEnable()
+        void OnEanble()
         {
             var itemDefs = typeof(RoR2.ItemCatalog).GetStaticField<RoR2.ItemDef[]>("itemDefs");
             foreach (var itemDef in itemDefs)
