@@ -6,7 +6,7 @@ namespace RiskOfShame
 {
     public class AdvancedTooltips : MonoBehaviour
     {
-        void OnEanble()
+        void OnEnable()
         {
             var itemDefs = typeof(RoR2.ItemCatalog).GetStaticField<RoR2.ItemDef[]>("itemDefs");
             foreach (var itemDef in itemDefs)
