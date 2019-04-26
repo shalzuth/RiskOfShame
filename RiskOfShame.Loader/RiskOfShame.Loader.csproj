@@ -155,7 +155,4 @@
     <Error Condition="!Exists('..\packages\Fody.4.2.1\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.4.2.1\build\Fody.targets'))" />
   </Target>
   <Import Project="..\packages\Fody.4.2.1\build\Fody.targets" Condition="Exists('..\packages\Fody.4.2.1\build\Fody.targets')" />
-  <PropertyGroup>
-    <PostBuildEvent>..\..\..\..\sign.bat</PostBuildEvent>
-  </PropertyGroup>
 </Project>
