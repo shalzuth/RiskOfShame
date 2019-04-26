@@ -1,3 +1,6 @@
+## Status
+[![Build status](https://ci.appveyor.com/api/projects/status/dypfqfbyd46bdnyn?svg=true)](https://ci.appveyor.com/project/shalzuth/riskofshame)
+
 ## How to Run
 - Download https://github.com/shalzuth/RiskOfShame/releases/download/beta/RiskOfShame.Loader.exe
 - Launch Game
