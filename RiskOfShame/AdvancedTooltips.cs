@@ -6,9 +6,9 @@ namespace RiskOfShame
 {
     public class AdvancedTooltips : MonoBehaviour
     {
-        void OnEanble()
+        void OnEnable()
         {
-            var itemDefs = typeof(RoR2.ItemCatalog).GetStaticField<RoR2.ItemDef[]>("itemDefs");
+            var itemDefs = typeof(RoR2.ItemCatalog).GetField<RoR2.ItemDef[]>("itemDefs");
             foreach (var itemDef in itemDefs)
                 itemDef.pickupToken = itemDef.descriptionToken;
         }
@@ -21,7 +21,7 @@ namespace RiskOfShame
             var master = localUser.cachedMasterController.master;
             Body = master.GetBody();
             Inventory = master.inventory;
-            var huds = typeof(RoR2.UI.HUD).GetStaticField<List<RoR2.UI.HUD>>("instancesList");
+            var huds = typeof(RoR2.UI.HUD).GetField<List<RoR2.UI.HUD>>("instancesList");
             foreach (var hud in huds)
             {
                 var items = hud.itemInventoryDisplay.GetField<List<RoR2.UI.ItemIcon>>("itemIcons");

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace RiskOfShame
@@ -10,14 +11,14 @@ namespace RiskOfShame
             void Update()
             {
                 var entityStateMachine = gameObject.GetComponent<RoR2.EntityStateMachine>();
-                if (entityStateMachine.state.GetType() == typeof(EntityStates.Barrel.Opened))
+                if (entityStateMachine && entityStateMachine.state.GetType() == typeof(EntityStates.Barrel.Opened))
                 {
                     UnityEngine.Networking.NetworkServer.Destroy(gameObject);
                     Destroy(gameObject);
                 }
             }
         }
-        void Update()
+        void AddRemoveEmptyObjectBehavior(RoR2.SceneDirector obj)
         {
             var purchasables = Object.FindObjectsOfType<RoR2.PurchaseInteraction>();
             foreach (var purchase in purchasables)
@@ -34,8 +35,14 @@ namespace RiskOfShame
                     barrel.gameObject.AddComponent<RemoveEmptyObject>();
             }
         }
+        void OnEnable()
+        {
+            AddRemoveEmptyObjectBehavior(null);
+            RoR2.SceneDirector.onPostPopulateSceneServer += AddRemoveEmptyObjectBehavior;
+        }
         void OnDisable()
         {
+            RoR2.SceneDirector.onPostPopulateSceneServer -= AddRemoveEmptyObjectBehavior;
             var removers = Object.FindObjectsOfType<RemoveEmptyObject>();
             foreach (var remover in removers)
                 Destroy(remover);

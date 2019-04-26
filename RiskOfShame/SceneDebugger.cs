@@ -62,9 +62,21 @@ namespace RiskOfShame
                 else if(!gameObj.activeSelf)
                     GUI.color = Color.red;
                 if (GUILayout.Toggle(ExpandedObjs.Contains(gameObj), gameObj.name, GUILayout.ExpandWidth(false)))
-                    ExpandedObjs.TryAdd(gameObj, () => SelectedGameObject = gameObj.transform);
+                {
+                    if (!ExpandedObjs.Contains(gameObj))
+                    {
+                        ExpandedObjs.Add(gameObj);
+                        SelectedGameObject = gameObj.transform;
+                    }
+                }
                 else
-                    ExpandedObjs.TryRemove(gameObj, () => SelectedGameObject = gameObj.transform);
+                {
+                    if (ExpandedObjs.Contains(gameObj))
+                    {
+                        ExpandedObjs.Remove(gameObj);
+                        SelectedGameObject = gameObj.transform;
+                    }
+                }
                 GUI.color = color;
             }
             GUILayout.EndHorizontal();
@@ -156,7 +168,7 @@ namespace RiskOfShame
                     var assemblies = AppDomain.CurrentDomain.GetAssemblies();
                     foreach (var assembly in assemblies)
                     {
-                        ExpandedObjects[assembly] = GUILayout.Toggle(ExpandedObjects.TryGetValue(assembly), assembly.GetName().Name, GUILayout.ExpandWidth(false));
+                        ExpandedObjects[assembly] = GUILayout.Toggle(ExpandedObjects.ContainsKey(assembly) ? ExpandedObjects[assembly] : false, assembly.GetName().Name, GUILayout.ExpandWidth(false));
                         if (ExpandedObjects[assembly])
                         {
                             var types = assembly.GetTypes().Where(t => t.IsClass && !t.IsAbstract && !t.ContainsGenericParameters).ToList();
@@ -169,7 +181,7 @@ namespace RiskOfShame
                                 {
                                     var color = GUI.color;
                                     GUILayout.Space(20);
-                                    ExpandedObjects[type] = GUILayout.Toggle(ExpandedObjects.TryGetValue(type), type.Name, GUILayout.ExpandWidth(false));
+                                    ExpandedObjects[type] = GUILayout.Toggle(ExpandedObjects.ContainsKey(type) ? ExpandedObjects[type] : false, type.Name, GUILayout.ExpandWidth(false));
                                     GUI.color = color;
                                 }
                                 GUILayout.EndHorizontal();
@@ -183,7 +195,7 @@ namespace RiskOfShame
                                         GUILayout.BeginHorizontal();
                                         {
                                             GUILayout.Space(40);
-                                            ExpandedObjects[field] = GUILayout.Toggle(ExpandedObjects.TryGetValue(field), field.Name + " : " + field.FieldType, GUI.skin.label, GUILayout.ExpandWidth(false));
+                                            ExpandedObjects[field] = GUILayout.Toggle(ExpandedObjects.ContainsKey(field) ? ExpandedObjects[field] : false, field.Name + " : " + field.FieldType, GUI.skin.label, GUILayout.ExpandWidth(false));
                                         }
                                         GUILayout.EndHorizontal();
                                     }

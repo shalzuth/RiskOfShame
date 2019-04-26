@@ -18,13 +18,17 @@ namespace RiskOfShame
             EntityStates.FireNailgun.spreadYawScale = 1f;
             EntityStates.FireNailgun.spreadBloomValue = 0.2f;
         }
-        void OnGUI()
+        void Update()
         {
             if (Menu.CursorIsVisible())
                 return;
             var localUser = RoR2.LocalUserManager.GetFirstLocalUser();
             var controller = localUser.cachedMasterController;
+            if (!controller)
+                return;
             var body = controller.master.GetBody();
+            if (!body)
+                return;
             var inputBank = body.GetComponent<RoR2.InputBankTest>();
             var aimRay = new Ray(inputBank.aimOrigin, inputBank.aimDirection);
             var bullseyeSearch = new RoR2.BullseyeSearch();

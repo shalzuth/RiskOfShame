@@ -8,7 +8,7 @@ namespace RiskOfShame
     {
         private void OnEnable()
         {
-            var unlockables = typeof(RoR2.UnlockableCatalog).GetStaticField<Dictionary<String, RoR2.UnlockableDef>>("nameToDefTable");
+            var unlockables = typeof(RoR2.UnlockableCatalog).GetField<Dictionary<String, RoR2.UnlockableDef>>("nameToDefTable");
             foreach (var unlockable in unlockables)
                 RoR2.Run.instance.GrantUnlockToAllParticipatingPlayers(unlockable.Key);
             foreach (var networkUser in RoR2.NetworkUser.readOnlyInstancesList)

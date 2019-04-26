@@ -17,7 +17,7 @@ namespace RiskOfShame
                     return true;
             return false;
         }
-        void Start()
+        void Awake()
         {
             MenuId = GetHashCode();
         }

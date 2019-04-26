@@ -13,12 +13,12 @@ namespace RiskOfShame
         {
             var type = original.GetType();
             var copy = destination.AddComponent(type);
-            var fields = type.GetFields(Extensions.flags);
+            var fields = type.GetFields(Reflection.flags);
             foreach (var field in fields)
             {
                 field.SetValue(copy, field.GetValue(original));
             }
-            var props = type.GetProperties(Extensions.flags);
+            var props = type.GetProperties(Reflection.flags);
             foreach (var prop in props)
             {
                 prop.SetValue(copy, prop.GetValue(original));

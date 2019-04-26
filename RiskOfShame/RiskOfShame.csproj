@@ -101,7 +101,7 @@
     <Compile Include="ChanceShrineOnEnd.cs" />
     <Compile Include="Testing.cs" />
     <Compile Include="DropItem.cs" />
-    <Compile Include="Extensions.cs" />
+    <Compile Include="Reflection.cs" />
     <Compile Include="Loader.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Menu.cs" />

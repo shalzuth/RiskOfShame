@@ -13,9 +13,9 @@ namespace RiskOfShame
         Rect CharacterWindow = new Rect(Screen.width - CharacterWidth - Margin, Margin, CharacterWidth, Screen.height - Margin* 2);
         Vector2 CharacterScrollPos;
         Dictionary<String, Int32> nameToIndexMap = new Dictionary<String, Int32>();
-        void Start()
+        void Awake()
         {
-            nameToIndexMap = typeof(RoR2.BodyCatalog).GetStaticField<Dictionary<String, Int32>>("nameToIndexMap");
+            nameToIndexMap = typeof(RoR2.BodyCatalog).GetField<Dictionary<String, Int32>>("nameToIndexMap");
             CharacterSelectId = GetHashCode();
         }
         void OnGUI()

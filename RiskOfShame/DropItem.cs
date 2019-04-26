@@ -59,7 +59,7 @@ namespace RiskOfShame
             var networkClient = NetworkClient.allClients.FirstOrDefault();
             if (networkClient != null)
                 networkClient.RegisterHandlerSafe(HandleId, HandleDropItem);
-            var huds = typeof(RoR2.UI.HUD).GetStaticField<List<RoR2.UI.HUD>>("instancesList");
+            var huds = typeof(RoR2.UI.HUD).GetField<List<RoR2.UI.HUD>>("instancesList");
             foreach (var hud in huds)
             {
                 var items = hud.itemInventoryDisplay.GetField<List<RoR2.UI.ItemIcon>>("itemIcons");
@@ -73,7 +73,7 @@ namespace RiskOfShame
         }
         void OnDisable()
         {
-            var huds = typeof(RoR2.UI.HUD).GetStaticField<List<RoR2.UI.HUD>>("instancesList");
+            var huds = typeof(RoR2.UI.HUD).GetField<List<RoR2.UI.HUD>>("instancesList");
             foreach (var hud in huds)
             {
                 var items = hud.itemInventoryDisplay.GetField<List<RoR2.UI.ItemIcon>>("itemIcons");
