@@ -5,11 +5,10 @@
 - In game, when you have cursor (escape, tab, main menu, etc), you can enable/disable addons
 
 ## Available Addons
+- ExtraSensoryPerception, shows items/teleporters/shrines/etc as a HUD
+- AimBot, for when you can't aim
 - Drop Item, notifies party when dropping 
 - Advanced Tooltips, includes extra info about items
-- Reveal Chests, by showing a lock around them 
-- Reveal Loot, shows what's inside chests + random terminals
-- Reveal Teleporter, shows the indicator as if you have already finished the event
 - Remove Empty Objects, to avoid clutter
 - Always Sprint, you don't have to keep hitting CTRL
 - Big Party, supports up to 16 players in party
@@ -36,18 +35,6 @@ Adds chat message when item drops.
 ## Remove Empty Objects
 Chests disappear after opening them
 ![Remove Empty Objects](../assets/Media/RemoveEmptyItems.gif?raw=true)
-
-## Reveal Chests
-Adds a permanent lock around all chests to help visually find them
-![Reveal Chests](../assets/Media/RevealChests.png)
-
-## Reveal Loot
-Replaces item cost with the contents of the chest
-![Remove Empty Objects](../assets/Media/RevealLoot.png)
-
-## Reveal Teleporter
-Adds a POI over the teleporter to help find it
-![Reveal Teleporter](../assets/Media/RevealTeleporter.gif?raw=true)
 
 ## Pick Survivor
 Allows picking any survivor available in game, including enemies/etc. For multiplayer, need to select the survivor in lobby.
