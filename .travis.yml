@@ -1,2 +1,4 @@
+before_script:
+  - git clone --single-branch --branch libs https://github.com/shalzuth/RiskOfShame.git
 language: csharp
 solution: RiskOfShame.sln
