@@ -4,39 +4,38 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
-using System.Threading.Tasks;
 using Microsoft.CSharp;
 
 namespace RiskOfShame.Loader.Core
 {
     public class Compiler
     {
+        public static String ProjName { get; } = typeof(Compiler).Namespace.Split('.').First();
         public static String UnityDllPath = "";
         public static Boolean UpdateSources()
         {
-            if (Directory.Exists(@"..\..\..\RiskOfShame"))
+            if (Directory.Exists($@"..\..\..\{ProjName}"))
                 return false;
             Console.WriteLine("Getting latest version info from Github");
             System.Net.WebClient wc = new System.Net.WebClient();
-            String hash = wc.DownloadString("https://github.com/shalzuth/RiskOfShame/tree/master/RiskOfShame");
-            String hashSearch = "\"commit-tease-sha\" href=\"/shalzuth/RiskOfShame/commit/";
+            String hash = wc.DownloadString($"https://github.com/shalzuth/{ProjName}/tree/master/{ProjName}");
+            String hashSearch = $"\"commit-tease-sha\" href=\"/shalzuth/{ProjName}/commit/";
             hash = hash.Substring(hash.IndexOf(hashSearch) + hashSearch.Length, 7);
-            String hashFile = @".\RiskOfShame-master\hash.txt";
+            String hashFile = $@".\{ProjName}-master\hash.txt";
             if (File.Exists(hashFile))
             {
                 if (hash != File.ReadAllText(hashFile))
                 {
                     Console.WriteLine("Later version exists, removing existing version");
-                    Directory.Delete(@".\RiskOfShame-master", true);
+                    Directory.Delete($@".\{ProjName}-master", true);
                 }
             }
             if (!File.Exists(hashFile))
             {
                 Console.WriteLine("Downloading latest version");
-                wc.DownloadFile("https://github.com/shalzuth/RiskOfShame/archive/master.zip", "RiskOfShame.zip");
-                using (var archive = ZipFile.OpenRead("RiskOfShame.zip"))
+                wc.DownloadFile($"https://github.com/shalzuth/{ProjName}/archive/master.zip", $"{ProjName}.zip");
+                using (var archive = ZipFile.OpenRead($"{ProjName}.zip"))
                 {
                     archive.ExtractToDirectory(@".\");
                 }
@@ -62,7 +61,7 @@ namespace RiskOfShame.Loader.Core
             compilerParameters.ReferencedAssemblies.Clear();
             //compilerParameters.ReferencedAssemblies.Add("mscorlib.dll");
             var dlls = Directory.GetFiles(UnityDllPath, "*.dll", SearchOption.AllDirectories);
-            foreach(var dll in dlls)
+            foreach (var dll in dlls)
                 if (!dll.Contains("mscorlib"))
                     compilerParameters.ReferencedAssemblies.Add(dll);
             /*compilerParameters.ReferencedAssemblies.Add(UnityDllPath + "System.dll");
@@ -81,17 +80,17 @@ namespace RiskOfShame.Loader.Core
             //compilerParameters.ReferencedAssemblies.Add(gamePath + "TextMeshPro-1.0.55.2017.1.0b11.dll");*/
 
             string[] sourceFiles;
-            if (Directory.Exists(@"..\..\..\RiskOfShame"))
-                sourceFiles = Directory.GetFiles(@"..\..\..\RiskOfShame", "*.cs", SearchOption.AllDirectories);
+            if (Directory.Exists($@"..\..\..\{ProjName}"))
+                sourceFiles = Directory.GetFiles($@"..\..\..\{ProjName}", "*.cs", SearchOption.AllDirectories);
             else
-                sourceFiles = Directory.GetFiles(@"RiskOfShame-master\RiskOfShame\", "*.cs", SearchOption.AllDirectories);
+                sourceFiles = Directory.GetFiles($@"{ProjName}-master\{ProjName}\", "*.cs", SearchOption.AllDirectories);
             var sources = new List<String>();
             foreach (var sourceFile in sourceFiles)
             {
                 if (sourceFile.Contains(@"obj\\"))
                     continue;
                 var source = File.ReadAllText(sourceFile);
-                source = source.Replace("RiskOfShame", randString);
+                source = source.Replace(ProjName, randString);
                 sources.Add(source);
             }
             //var result = codeProvider.CompileAssemblyFromFile(compilerParameters, sourceFiles);
@@ -99,7 +98,7 @@ namespace RiskOfShame.Loader.Core
             if (result.Errors.Count > 0)
             {
                 var sb = new StringBuilder();
-                foreach(CompilerError error in result.Errors)
+                foreach (CompilerError error in result.Errors)
                     sb.AppendLine(error.ToString());
                 throw new Exception(sb.ToString());
             }
