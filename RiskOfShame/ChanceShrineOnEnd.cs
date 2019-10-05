@@ -10,14 +10,14 @@ namespace RiskOfShame
             GameObject ChanceShrine;
             GameObject TrySpawnChanceShrineAt(Vector3 pos)
             {
-                return RoR2.DirectorCore.instance.TrySpawnObject(Resources.Load<RoR2.SpawnCard>("SpawnCards/InteractableSpawnCard/iscShrineChance"),
+                return RoR2.DirectorCore.instance.TrySpawnObject(new RoR2.DirectorSpawnRequest(Resources.Load<RoR2.SpawnCard>("SpawnCards/InteractableSpawnCard/iscShrineChance"),
                     new RoR2.DirectorPlacementRule
                     {
                         placementMode = RoR2.DirectorPlacementRule.PlacementMode.ApproximateSimple,
                         preventOverhead = true,
                         position = pos
                     },
-                    new Xoroshiro128Plus(0));
+                    new Xoroshiro128Plus(0)));
             }
             void TrySpawnChanceShrine()
             {
