@@ -10,12 +10,12 @@ namespace RiskOfShame
         static Int32 Margin = 5;
         static Int32 CharacterWidth = 400;
         Int32 CharacterSelectId;
-        Rect CharacterWindow = new Rect(Screen.width - CharacterWidth - Margin, Margin, CharacterWidth, Screen.height - Margin* 2);
+        Rect CharacterWindow = new Rect(Screen.width - CharacterWidth - Margin, Margin, CharacterWidth, Screen.height - Margin * 2);
         Vector2 CharacterScrollPos;
-        Dictionary<String, Int32> nameToIndexMap = new Dictionary<String, Int32>();
+        Dictionary<String, RoR2.BodyIndex> nameToIndexMap = new Dictionary<String, RoR2.BodyIndex>();
         void Awake()
         {
-            nameToIndexMap = typeof(RoR2.BodyCatalog).GetField<Dictionary<String, Int32>>("nameToIndexMap");
+            nameToIndexMap = typeof(RoR2.BodyCatalog).GetField<Dictionary<String, RoR2.BodyIndex>>("nameToIndexMap");
             CharacterSelectId = GetHashCode();
         }
         void OnGUI()
@@ -30,7 +30,7 @@ namespace RiskOfShame
                 {
                     if (body.Key.Contains("(Clone)"))
                         continue;
-                    if (GUILayout.Button(body.Key.Replace("Body","")))
+                    if (GUILayout.Button(body.Key.Replace("Body", "")))
                     {
                         GameObject newBody = RoR2.BodyCatalog.FindBodyPrefab(body.Key);
                         if (newBody == null)
@@ -45,7 +45,7 @@ namespace RiskOfShame
                             {
                                 if (user.currentNetworkUser == null)
                                     return;
-                                user.currentNetworkUser.CallCmdSetBodyPreference(body.Value);
+                                user.currentNetworkUser.CallCmdSetBodyPreference((RoR2.BodyIndex)body.Value);
                             }
                             return;
                         }

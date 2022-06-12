@@ -2,25 +2,25 @@
 using System.Linq;
 using UnityEngine;
 
-namespace RiskOfShame
+namespace Sena
 {
     public class AimBot : MonoBehaviour
     {
-        void OnEnable()
+        public bool CursorIsVisible()
         {
-            EntityStates.FireNailgun.spreadPitchScale = 0;
-            EntityStates.FireNailgun.spreadYawScale = 0;
-            EntityStates.FireNailgun.spreadBloomValue = 0;
-        }
-        void OnDisable()
-        {
-            EntityStates.FireNailgun.spreadPitchScale = 0.5f;
-            EntityStates.FireNailgun.spreadYawScale = 1f;
-            EntityStates.FireNailgun.spreadBloomValue = 0.2f;
+            for (int i = 0; i < RoR2.UI.MPEventSystem.readOnlyInstancesList.Count; i++)
+            {
+                var mpeventSystem = RoR2.UI.MPEventSystem.readOnlyInstancesList[i];
+                if (mpeventSystem.isCursorVisible)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
         void Update()
         {
-            if (Menu.CursorIsVisible())
+            if (CursorIsVisible())
                 return;
             var localUser = RoR2.LocalUserManager.GetFirstLocalUser();
             var controller = localUser.cachedMasterController;
