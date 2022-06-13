@@ -2,7 +2,7 @@
 using System.Linq;
 using UnityEngine;
 
-namespace Sena
+namespace RiskOfShame
 {
     public class AimBot : MonoBehaviour
     {
@@ -20,15 +20,12 @@ namespace Sena
         }
         void Update()
         {
-            if (CursorIsVisible())
-                return;
+            if (CursorIsVisible()) return;
             var localUser = RoR2.LocalUserManager.GetFirstLocalUser();
             var controller = localUser.cachedMasterController;
-            if (!controller)
-                return;
+            if (!controller) return;
             var body = controller.master.GetBody();
-            if (!body)
-                return;
+            if (!body) return;
             var inputBank = body.GetComponent<RoR2.InputBankTest>();
             var aimRay = new Ray(inputBank.aimOrigin, inputBank.aimDirection);
             var bullseyeSearch = new RoR2.BullseyeSearch();
@@ -43,11 +40,7 @@ namespace Sena
             bullseyeSearch.maxAngleFilter = 20f;// ;// float.MaxValue;
             bullseyeSearch.RefreshCandidates();
             var hurtBox = bullseyeSearch.GetResults().FirstOrDefault();
-            if (hurtBox)
-            {
-                Vector3 direction = hurtBox.transform.position - aimRay.origin;
-                inputBank.aimDirection = direction;
-            }
+            if (hurtBox) inputBank.aimDirection = hurtBox.transform.position - aimRay.origin;   
         }
     }
 }

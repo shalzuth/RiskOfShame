@@ -130,9 +130,8 @@ namespace RiskOfShame
             RoR2.LocalUserManager.GetFirstLocalUser().cachedMasterController.master.money = 1000;
             RoR2.LocalUserManager.GetFirstLocalUser().cachedBody.baseMoveSpeed = 40.0f;
             RoR2.LocalUserManager.GetFirstLocalUser().cachedBody.baseJumpCount = 5;
-
             RoR2.LocalUserManager.GetFirstLocalUser().cachedBody.healthComponent.godMode= true;
-            RoR2.LocalUserManager.GetFirstLocalUser().cachedBody.baseDamage = 10000;
+            //RoR2.LocalUserManager.GetFirstLocalUser().cachedBody.baseDamage = 10000;
 
             /*var sb = new StringBuilder();
             var chests = UnityEngine.Object.FindObjectsOfType<RoR2.ChestBehavior>();

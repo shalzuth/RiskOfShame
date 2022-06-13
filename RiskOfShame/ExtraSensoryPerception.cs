@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using RoR2;
 
 namespace RiskOfShame
 {
@@ -12,7 +13,7 @@ namespace RiskOfShame
             public static T Load<T>(string path) where T : Object
             {
                 if (!resourceCache.ContainsKey(path))
-                    resourceCache[path] = Resources.Load<T>(path);
+                    resourceCache[path] = LegacyResourcesAPI.Load<T>(path);
                 return (T)resourceCache[path];
             }
         }
@@ -29,7 +30,7 @@ namespace RiskOfShame
         }
         void OnEnable()
         {
-            Material chamsMaterial = new Material(Shader.Find("Hidden/Internal-Colored"))
+            /*var chamsMaterial = new Material(Shader.Find("Hidden/Internal-Colored"))
             {
                 hideFlags = HideFlags.DontSaveInEditor | HideFlags.HideInHierarchy
             };
@@ -39,10 +40,10 @@ namespace RiskOfShame
             chamsMaterial.SetInt("_ZTest", 8); // Render through walls.
             chamsMaterial.SetInt("_ZWrite", 0);
             chamsMaterial.SetColor("_Color", Color.green);
+            foreach(var interactable in PurchaseInteractions)
+            foreach (Renderer renderer in interactable.GetComponentsInChildren<Renderer>())
+                renderer.material = chamsMaterial;*/
             DumpInteractables(null);
-            //foreach(var interactable in PurchaseInteractions)
-            //foreach (Renderer renderer in interactable.GetComponentsInChildren<Renderer>())
-                //renderer.material = chamsMaterial;
             RoR2.SceneDirector.onPostPopulateSceneServer += DumpInteractables;
         }
         void OnDisable()
@@ -58,7 +59,10 @@ namespace RiskOfShame
             try
             {
                 var icon = ResourcesCached.Load<Texture>(iconPath);
-                GUI.DrawTexture(new Rect(screenPos.x - size / 2, Screen.height - screenPos.y - size, size, size), icon);
+                if (icon != null)
+                    GUI.DrawTexture(new Rect(screenPos.x - size / 2, Screen.height - screenPos.y - size, size, size), icon);
+                else
+                    GUI.Label(new Rect(screenPos.x - size / 2, Screen.height - screenPos.y - size, size, size), icon.name);
             }
             catch
             {
@@ -74,21 +78,24 @@ namespace RiskOfShame
             var size = scale * 100 / (100 + distance);
             try
             {
-                GUI.DrawTexture(new Rect(screenPos.x - size / 2, Screen.height - screenPos.y - size, size, size), icon);
+                if (icon != null)
+                    GUI.DrawTexture(new Rect(screenPos.x - size / 2, Screen.height - screenPos.y - size, size, size), icon);
+                else
+                    GUI.Label(new Rect(screenPos.x - size / 2, Screen.height - screenPos.y - size, size, size), icon.name);
             }
             catch
             {
-                GUI.Label(new Rect(screenPos.x - size / 2, Screen.height - screenPos.y - size, size, size), icon.name);
             }
         }
         void OnGUI()
         {
+            var hp = GameObject.FindObjectsOfType<RoR2.HealthComponent>().ToList();
             foreach (var purchase in PurchaseInteractions)
             {
                 if (purchase == null || purchase.transform == null || purchase.transform.position == null || purchase.gameObject == null || purchase.gameObject.name == null) continue;
                 var screenPos = Camera.main.WorldToScreenPoint(purchase.transform.position);
                 if (screenPos.z <= 0) continue;
-                GUI.Label(new Rect(screenPos.x, Screen.height - screenPos.y, 200, 80), purchase.gameObject.name);
+                //GUI.Label(new Rect(screenPos.x, Screen.height - screenPos.y, 200, 80), purchase.gameObject.name);
 
                 if (!purchase.available) continue;
                 var itemPath = "";
@@ -134,7 +141,7 @@ namespace RiskOfShame
                     else if (order) itemPath = "Textures/ShrineSymbols/" + order.symbolTransform.GetComponent<MeshRenderer>().material.mainTexture.name;
                     else if (summon) itemPath = "Textures/BodyIcons/" + summon.masterPrefab.GetComponent<RoR2.CharacterMaster>().bodyPrefab.GetComponent<RoR2.CharacterBody>().portraitIcon.name;
                     else if (casino) itemPath = "Textures/MiscIcons/texMysteryIcon";
-                    else if (seer) GUI.Label(new Rect(screenPos.x, Screen.height - screenPos.y + 15, 200, 80), RoR2.SceneCatalog.GetSceneDef(seer.NetworktargetSceneDefIndex).baseSceneName);
+                    else if (seer) GUI.Label(new Rect(screenPos.x, Screen.height - screenPos.y + 15, 200, 80), RoR2.SceneCatalog.GetSceneDef((RoR2.SceneIndex)seer.NetworktargetSceneDefIndex).baseSceneName);
                 }
                 if (purchase.gameObject.name.Contains("NewtStatue")) itemPath = "Textures/MiscIcons/texShrineIconOutlined";
                 if (purchase.gameObject.name.Contains("Duplicator")) DrawIcon("Textures/MiscIcons/texInventoryIcon", purchase.transform.position, 80);
