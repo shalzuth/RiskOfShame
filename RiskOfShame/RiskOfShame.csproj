@@ -102,6 +102,7 @@
     <Compile Include="ParticipatingPlayers.cs" />
     <Compile Include="ItemNotification.cs" />
     <Compile Include="PickSurvivor.cs" />
+    <Compile Include="RailgunnerReload.cs" />
     <Compile Include="RemoveEmptyObjects.cs" />
     <Compile Include="SceneDebugger.cs" />
     <Compile Include="Testing.cs" />
